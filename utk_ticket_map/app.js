@@ -1,7 +1,4 @@
-// UTK ticket risk map (read-only)
-// Data: window.LOT_RISK (risk per lot per 15-minute window) and window.LOT_COORDS (traced lot outlines).
-// Lot outlines are fixed in data/lots.js. Only lots with an outline are shown on the map and in the rankings,
-// so lots without one (motorcycle parking, spread across campus) are left out.
+
 
 (function () {
   const RISK = window.LOT_RISK;
