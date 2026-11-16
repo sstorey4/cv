@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>UTK Ticket Risk Map</title>
+  <!-- Leaflet: free open-source map library, map tiles from OpenStreetMap -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h1>UTK ticket risk map</h1>
+      <p class="sub">Darker orange = a ticket was more likely in that lot at that time on a regular weekday</p>
+    </div>
+    <div class="timebox">
+      <button id="play" type="button" aria-label="Play through the day">▶</button>
+      <label for="time" class="time-label"><span id="timeText">8:00 AM</span></label>
+      <input id="time" type="range" min="0" max="47" step="1" value="8" aria-label="Time of day">
+      <div class="ticks"><span>6 AM</span><span>9 AM</span><span>12 PM</span><span>3 PM</span><span>6 PM</span></div>
+    </div>
+  </header>
+
+  <main class="layout">
+    <div id="map" aria-label="Campus map"></div>
+
+    <aside class="panel">
+      <section>
+        <h2>Riskiest lots at <span id="timeText2">8:00 AM</span></h2>
+        <ol id="topList" class="top-list"></ol>
+      </section>
+
+      <section>
+        <h2>Legend</h2>
+        <div class="legend-bar"></div>
+        <div class="legend-labels"><span>0%</span><span>30%</span><span>60%+</span></div>
+        <p class="note">Share of weekdays with at least one ticket in that lot during the 15-minute window. Based on <span id="nDays">—</span> regular weekdays, spring 2026.</p>
+        <p class="note">Showing <span id="nLots">—</span> lots. Motorcycle parking is spread across too many small areas to rate and is not shown.</p>
+      </section>
+    </aside>
+  </main>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="data/lot_risk.js"></script>
+  <script src="data/lots.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

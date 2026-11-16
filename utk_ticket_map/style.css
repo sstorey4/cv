@@ -1,0 +1,42 @@
+:root {
+  --orange: #ff8200;      /* UT orange */
+  --ink: #1f1f1f;
+  --muted: #666;
+  --line: #e2e2e2;
+  --panel: #fafafa;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body { font-family: Arial, Helvetica, sans-serif; color: var(--ink); background: #fff; display: flex; flex-direction: column; }
+
+.topbar { display: flex; flex-wrap: wrap; gap: 16px 32px; align-items: center; justify-content: space-between; padding: 12px 20px; border-bottom: 1px solid var(--line); }
+h1 { font-size: 20px; margin: 0; }
+.sub { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
+
+.timebox { display: grid; grid-template-columns: auto 1fr; grid-template-areas: "btn label" "btn slider" ". ticks"; column-gap: 12px; min-width: min(460px, 100%); flex: 1; max-width: 560px; }
+#play { grid-area: btn; align-self: center; width: 40px; height: 40px; border-radius: 50%; border: none; background: var(--orange); color: #fff; font-size: 16px; cursor: pointer; }
+#play:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.time-label { grid-area: label; font-size: 22px; font-weight: bold; font-variant-numeric: tabular-nums; }
+#time { grid-area: slider; width: 100%; accent-color: var(--orange); }
+.ticks { grid-area: ticks; display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); }
+
+.layout { flex: 1; display: grid; grid-template-columns: 1fr 320px; min-height: 0; }
+#map { min-height: 420px; }
+.panel { border-left: 1px solid var(--line); background: var(--panel); padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 20px; }
+.panel h2 { font-size: 14px; margin: 0 0 8px; }
+.note { font-size: 12px; color: var(--muted); margin: 6px 0 0; line-height: 1.4; }
+
+.top-list { margin: 0; padding-left: 20px; font-size: 13px; display: flex; flex-direction: column; gap: 6px; }
+.top-list li span { float: right; font-weight: bold; font-variant-numeric: tabular-nums; }
+
+.legend-bar { height: 12px; border-radius: 6px; background: linear-gradient(to right, #f2f2f2, #ffd2a3, var(--orange), #a84f00); }
+.legend-labels { display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+.lot-tip { font-size: 12px; }
+.lot-tip b { display: block; }
+
+@media (max-width: 760px) {
+  .layout { grid-template-columns: 1fr; grid-template-rows: 60vh auto; }
+  .panel { border-left: none; border-top: 1px solid var(--line); }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }

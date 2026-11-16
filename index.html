@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Samuel Storey — CV</title>
+    <meta name="description" content="Samuel Storey, PhD student in Computer Science at the University of Tennessee, Knoxville. Researcher in the SAIL lab working on scientific software development and testing.">
+
+    <!-- Fonts: Fraunces (display) + Inter (text) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-inner">
+            <div class="nav-brand">Samuel Storey</div>
+            <div class="nav-links">
+                <a href="#research" class="hide-sm">Research</a>
+                <a href="#projects">Projects</a>
+                <a href="#education" class="hide-sm">Education</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-container">
+
+        <!-- Hero -->
+        <header class="hero">
+            <img src="images/Sam_Profile.jpg" alt="Portrait of Samuel Storey" class="profile-img">
+            <div>
+                <p class="eyebrow">Curriculum Vitae</p>
+                <h1>Samuel Storey</h1>
+                <p class="title">PhD Student in Computer Science &middot; University of Tennessee, Knoxville</p>
+                <div class="contact-row">
+                    <span><i class="fa-solid fa-location-dot"></i> Knoxville, Tennessee</span>
+                    <a href="mailto:sstorey4@vols.utk.edu"><i class="fa-solid fa-envelope"></i> sstorey4@vols.utk.edu</a>
+                    <a href="https://linkedin.com/in/samuel-storey-569220298/" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+                    <a href="https://github.com/sstorey4" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> GitHub</a>
+                </div>
+            </div>
+        </header>
+
+        <!-- About -->
+        <section class="cv-section" id="about">
+            <h2 class="section-label">About</h2>
+            <div>
+                <p class="lead">I study how scientists and engineers build, test, and maintain software, and how that understanding can make research code more reliable.</p>
+                <p>I am a PhD student in Computer Science at the University of Tennessee, Knoxville, and a graduate of the University of Georgia. I work as a graduate research assistant in the SAIL lab under Dr. Nasir Eisty, where my work centers on scientific software development and testing in domain-specific fields. My broader interests include mining software repositories, collaborative development practices, and the reliability of large language models.</p>
+            </div>
+        </section>
+
+        <!-- Research -->
+        <section class="cv-section" id="research">
+            <h2 class="section-label">Research</h2>
+            <div class="research-card">
+                <h3>SAIL Lab &middot; University of Tennessee</h3>
+                <p class="meta">Graduate Research Assistant &middot; Advisor: Dr. Nasir Eisty &middot; 05/2026 &ndash; Present</p>
+                <p>Investigating how software is written and tested in scientific and domain-specific settings, where correctness is hard to define and developers are often domain experts first. The goal is to understand current testing practices and develop approaches that make scientific code easier to verify and trust.</p>
+                <ul class="interest-list">
+                    <li>Scientific Software</li>
+                    <li>Software Testing</li>
+                    <li>Mining Software Repositories</li>
+                    <li>Empirical Software Engineering</li>
+                    <li>LLM Reliability</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Current Projects -->
+        <section class="cv-section" id="projects">
+            <h2 class="section-label">Current Projects</h2>
+            <div class="project-list">
+
+                <article class="project">
+                    <span class="project-num">01</span>
+                    <div class="project-head">
+                        <h3>Why Not WONTFIX?</h3>
+                        <span class="status">Submitted &middot; MSR</span>
+                    </div>
+                    <p class="area">Research paper &middot; Mining software repositories</p>
+                    <p>An empirical study of the WONTFIX resolution in issue trackers. Using data mining across software projects, the paper examines when and why teams decide not to fix reported bugs, and how that decision shapes collaboration and development within software teams.</p>
+                    <ul class="keywords">
+                        <li>Data Mining</li>
+                        <li>Issue Tracking</li>
+                        <li>Team Dynamics</li>
+                        <li>Empirical SE</li>
+                    </ul>
+                </article>
+
+                <a class="project project-link" href="utk_ticket_map/index.html">
+                    <span class="project-num">02</span>
+                    <div class="project-head">
+                        <h3>UT Campus Parking Predictor</h3>
+                        <span class="status">In Development</span>
+                    </div>
+                    <p class="area">Web application &middot; Predictive modeling</p>
+                    <p>A website for the University of Tennessee campus that uses historical parking citation data to predict when and where it is best to park. The model surfaces enforcement patterns by lot, day, and time so students and staff can make better-informed parking decisions.</p>
+                    <ul class="keywords">
+                        <li>Predictive Analytics</li>
+                        <li>Open Data</li>
+                        <li>Web Development</li>
+                    </ul>
+                </a>
+
+                <article class="project">
+                    <span class="project-num">03</span>
+                    <div class="project-head">
+                        <h3>Conflict Injection in LLMs</h3>
+                        <span class="status">In Progress</span>
+                    </div>
+                    <p class="area">Research &middot; Large language models</p>
+                    <p>A study of how large language models respond when the information they are given contradicts itself. By deliberately injecting conflicts into provided context, the project measures whether models detect, resolve, or silently propagate inconsistencies, with implications for building more reliable LLM-based systems.</p>
+                    <ul class="keywords">
+                        <li>LLM Evaluation</li>
+                        <li>Robustness</li>
+                        <li>Knowledge Conflicts</li>
+                    </ul>
+                </article>
+
+            </div>
+        </section>
+
+        <!-- Education -->
+        <section class="cv-section" id="education">
+            <h2 class="section-label">Education</h2>
+            <div>
+                <div class="entry">
+                    <h3>University of Tennessee, Knoxville<span class="tag">Current</span></h3>
+                    <span class="date">2026 &ndash; 2030 (expected)</span>
+                    <p class="role">Ph.D. in Computer Science</p>
+                    <p class="detail">SAIL Lab, advised by Dr. Nasir Eisty. Research in scientific software development and testing.</p>
+                </div>
+                <div class="entry">
+                    <h3>University of Georgia</h3>
+                    <span class="date">2021 &ndash; 12/2025</span>
+                    <p class="role">B.S. in Computer Science &middot; GPA 3.4</p>
+                    <p class="detail">Relevant coursework: Database Design, Software Engineering.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience -->
+        <section class="cv-section" id="experience">
+            <h2 class="section-label">Experience</h2>
+            <div>
+                <div class="entry">
+                    <h3>Graduate Research Assistant</h3>
+                    <span class="date">05/2026 &ndash; Present</span>
+                    <p class="role">SAIL Lab, University of Tennessee</p>
+                    <p class="detail">Research on scientific coding and testing practices in domain-specific fields under Dr. Nasir Eisty.</p>
+                </div>
+                <div class="entry">
+                    <h3>Researcher</h3>
+                    <span class="date">08/2025 &ndash; 01/2026</span>
+                    <p class="role">Vertically Integrated Projects (VIP) Program</p>
+                    <p class="detail">Work with a team researching Arbuscular Mycorrhizal Fungi (AMF), using machine learning for better categorization.</p>
+                    <p class="detail">Annotated images with the Segment Anything Model (SAM) to organize raw data into usable datasets.</p>
+                    <p class="detail">Conducted an independent research assignment building on these tools and data to further study AMF.</p>
+                </div>
+                <div class="entry">
+                    <h3>Software Engineering Team Lead</h3>
+                    <span class="date">09/2024 &ndash; 12/2024</span>
+                    <p class="role">University of Georgia</p>
+                    <p class="detail">Led a student development team through design, implementation, and delivery of a full-stack web application.</p>
+                </div>
+                <div class="entry">
+                    <h3>Member, Association for Computing Machinery (ACM)</h3>
+                    <span class="date">09/2021 &ndash; Present</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills -->
+        <section class="cv-section" id="skills">
+            <h2 class="section-label">Skills</h2>
+            <dl class="skills-grid">
+                <div class="skill-row">
+                    <dt>Languages</dt>
+                    <dd>Python, Java, C, C#, SQL, JavaScript</dd>
+                </div>
+                <div class="skill-row">
+                    <dt>Frameworks &amp; Tools</dt>
+                    <dd>Node.js, React, Oracle Database, Git</dd>
+                </div>
+                <div class="skill-row">
+                    <dt>Research</dt>
+                    <dd>Data mining, empirical study design, software testing, LLM evaluation</dd>
+                </div>
+            </dl>
+        </section>
+
+        <!-- Honors -->
+        <section class="cv-section" id="honors">
+            <h2 class="section-label">Honors</h2>
+            <div>
+                <div class="entry">
+                    <h3>Zell Miller Scholarship</h3>
+                    <span class="date">08/2021 &ndash; 12/2025</span>
+                    <p class="detail">Georgia's merit-based scholarship for academic achievement.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <span>&copy; 2026 Samuel Storey</span>
+            <div class="footer-links">
+                <a href="mailto:sstorey4@vols.utk.edu" class="footer-link"><i class="fa-solid fa-envelope"></i> Email</a>
+                <a href="https://linkedin.com/in/samuel-storey-569220298/" target="_blank" rel="noopener" class="footer-link"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+                <a href="https://github.com/sstorey4" target="_blank" rel="noopener" class="footer-link"><i class="fa-brands fa-github"></i> GitHub</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
