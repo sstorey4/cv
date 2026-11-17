@@ -41,6 +41,32 @@
     </aside>
   </main>
 
+  <section class="planner" aria-labelledby="plannerTitle">
+    <div class="planner-head">
+      <div>
+        <h2 id="plannerTitle">Chance of a ticket during your visit</h2>
+        <p class="note">Pick the lot and when you'll arrive and leave. The chance is how likely the lot was to get at least one ticket at some point while you're parked.</p>
+      </div>
+      <button id="addTrip" type="button" class="add-btn">+ Add another trip</button>
+    </div>
+
+    <div class="table-wrap">
+      <table class="trip-table">
+        <thead>
+          <tr>
+            <th scope="col">Lot</th>
+            <th scope="col">Arrival</th>
+            <th scope="col">Departure</th>
+            <th scope="col">Chance of a ticket</th>
+            <th scope="col"><span class="sr-only">Remove</span></th>
+          </tr>
+        </thead>
+        <tbody id="tripRows"></tbody>
+      </table>
+    </div>
+    <p class="note">How it's worked out: each 15-minute window in your stay has its own chance from the data above, and those are combined (assuming each window is independent), so long stays add up. The data covers 6:00 AM to 6:00 PM.</p>
+  </section>
+
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="data/lot_risk.js"></script>
   <script src="data/lots.js"></script>

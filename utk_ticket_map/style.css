@@ -6,8 +6,8 @@
   --panel: #fafafa;
 }
 * { box-sizing: border-box; }
-html, body { height: 100%; margin: 0; }
-body { font-family: Arial, Helvetica, sans-serif; color: var(--ink); background: #fff; display: flex; flex-direction: column; }
+html, body { margin: 0; }
+body { font-family: Arial, Helvetica, sans-serif; color: var(--ink); background: #fff; display: flex; flex-direction: column; min-height: 100vh; }
 
 .topbar { display: flex; flex-wrap: wrap; gap: 16px 32px; align-items: center; justify-content: space-between; padding: 12px 20px; border-bottom: 1px solid var(--line); }
 h1 { font-size: 20px; margin: 0; }
@@ -20,7 +20,7 @@ h1 { font-size: 20px; margin: 0; }
 #time { grid-area: slider; width: 100%; accent-color: var(--orange); }
 .ticks { grid-area: ticks; display: flex; justify-content: space-between; font-size: 11px; color: var(--muted); }
 
-.layout { flex: 1; display: grid; grid-template-columns: 1fr 320px; min-height: 0; }
+.layout { height: max(480px, 72vh); display: grid; grid-template-columns: 1fr 320px; min-height: 0; border-bottom: 1px solid var(--line); }
 #map { min-height: 420px; }
 .panel { border-left: 1px solid var(--line); background: var(--panel); padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 20px; }
 .panel h2 { font-size: 14px; margin: 0 0 8px; }
@@ -35,8 +35,43 @@ h1 { font-size: 20px; margin: 0; }
 .lot-tip { font-size: 12px; }
 .lot-tip b { display: block; }
 
+/* ---------- trip planner table ---------- */
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.planner { padding: 20px; max-width: 1200px; width: 100%; margin: 0 auto; }
+.planner-head { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: flex-end; justify-content: space-between; margin-bottom: 12px; }
+.planner h2 { font-size: 18px; margin: 0; }
+.planner .note { max-width: 70ch; }
+.add-btn { border: 1px solid var(--orange); background: #fff; color: #a84f00; font-weight: bold; padding: 8px 14px; border-radius: 6px; cursor: pointer; font-size: 13px; }
+.add-btn:hover { background: #fff4e8; }
+
+.table-wrap { border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.trip-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.trip-table th { text-align: left; font-size: 12px; color: var(--muted); font-weight: bold; background: var(--panel); padding: 10px 12px; border-bottom: 1px solid var(--line); }
+.trip-table td { padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+.trip-table tbody tr:last-child td { border-bottom: none; }
+.trip-table select { width: 100%; font: inherit; padding: 6px 8px; border: 1px solid #c8c8c8; border-radius: 6px; background: #fff; color: var(--ink); }
+.trip-table td.lot-cell { min-width: 220px; }
+.trip-table td.result-cell { min-width: 170px; }
+
+.chance { display: inline-block; min-width: 64px; text-align: center; padding: 4px 10px; border-radius: 999px; font-weight: bold; font-size: 15px; font-variant-numeric: tabular-nums; }
+.chance-label { font-size: 12px; margin-left: 6px; color: var(--muted); }
+.peak { display: block; font-size: 11px; color: var(--muted); margin-top: 4px; }
+.msg { font-size: 12px; color: var(--muted); }
+.remove-btn { border: none; background: none; color: var(--muted); font-size: 18px; cursor: pointer; padding: 4px 8px; border-radius: 4px; }
+.remove-btn:hover { color: var(--ink); background: #f0f0f0; }
+.remove-btn[hidden] { display: none; }
+
 @media (max-width: 760px) {
-  .layout { grid-template-columns: 1fr; grid-template-rows: 60vh auto; }
+  .layout { height: auto; grid-template-columns: 1fr; grid-template-rows: 60vh auto; }
   .panel { border-left: none; border-top: 1px solid var(--line); }
+  .planner { padding: 16px; }
+  .trip-table thead { display: none; }
+  .trip-table, .trip-table tbody, .trip-table tr, .trip-table td { display: block; width: 100%; }
+  .trip-table tr { padding: 8px 0; border-bottom: 1px solid var(--line); position: relative; }
+  .trip-table tbody tr:last-child { border-bottom: none; }
+  .trip-table td { border: none; padding: 6px 12px; }
+  .trip-table td[data-label]::before { content: attr(data-label); display: block; font-size: 11px; color: var(--muted); font-weight: bold; margin-bottom: 4px; }
+  .trip-table td.remove-cell { position: absolute; top: 4px; right: 4px; width: auto; padding: 0; }
+  .trip-table td.lot-cell, .trip-table td.result-cell { min-width: 0; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }

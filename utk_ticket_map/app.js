@@ -103,4 +103,117 @@
   });
 
   render();
+
+  // ---------- trip planner: chance of a ticket over a stay ----------
+  const N = RISK.slots.length; // 48 fifteen-minute windows, 6:00 AM - 5:45 PM
+  // time options: start of each window, plus the end of the last one (6:00 PM)
+  const lastEnd = (() => {
+    const m = RISK.slots[N - 1].match(/(\d+):(\d+) (AM|PM)/);
+    let h = Number(m[1]) % 12 + (m[3] === "PM" ? 12 : 0), min = Number(m[2]) + 15;
+    if (min >= 60) { h += 1; min -= 60; }
+    return ((h + 11) % 12 + 1) + ":" + String(min).padStart(2, "0") + (h >= 12 ? " PM" : " AM");
+  })();
+  const TIMES = RISK.slots.concat([lastEnd]);
+  const lotsAlpha = lotNames.slice().sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+
+  // chance of at least one ticket across windows [a, d), treating windows as independent
+  function stayChance(lot, a, d) {
+    const r = RISK.lots[lot].risk;
+    let none = 1, peak = a;
+    for (let i = a; i < d; i++) {
+      none *= 1 - r[i];
+      if (r[i] > r[peak]) peak = i;
+    }
+    return { p: 1 - none, peak, peakRisk: r[peak] };
+  }
+
+  function makeSelect(label, options, value) {
+    const s = document.createElement("select");
+    s.setAttribute("aria-label", label);
+    options.forEach(([v, text]) => s.add(new Option(text, v)));
+    s.value = String(value);
+    return s;
+  }
+
+  function cell(label, child, cls) {
+    const td = document.createElement("td");
+    if (label) td.dataset.label = label;
+    if (cls) td.className = cls;
+    if (child) td.appendChild(child);
+    return td;
+  }
+
+  const tripRows = document.getElementById("tripRows");
+
+  function addTrip(init) {
+    init = init || {};
+    const tr = document.createElement("tr");
+    const lot = makeSelect("Lot", lotsAlpha.map((n) => [n, n]), init.lot || lotNames[0]);
+    const arrive = makeSelect("Arrival time", TIMES.slice(0, N).map((t, i) => [i, t]), init.arrive ?? 8);
+    const depart = makeSelect("Departure time", TIMES.map((t, i) => [i, t]).slice(1), init.depart ?? 20);
+    const result = document.createElement("div");
+    result.setAttribute("aria-live", "polite");
+    const remove = document.createElement("button");
+    remove.type = "button";
+    remove.className = "remove-btn";
+    remove.textContent = "✕";
+    remove.setAttribute("aria-label", "Remove this trip");
+    remove.addEventListener("click", () => { tr.remove(); syncRemoveButtons(); });
+
+    tr.append(
+      cell("Lot", lot, "lot-cell"),
+      cell("Arrival", arrive),
+      cell("Departure", depart),
+      cell("Chance of a ticket", result, "result-cell"),
+      cell(null, remove, "remove-cell")
+    );
+
+    function update() {
+      const a = Number(arrive.value), d = Number(depart.value);
+      // keep departure after arrival
+      [...depart.options].forEach((o) => { o.disabled = Number(o.value) <= a; });
+      if (d <= a) {
+        depart.value = String(Math.min(a + 4, N)); // default to an hour later
+        return update();
+      }
+      const { p, peak, peakRisk } = stayChance(lot.value, a, d);
+      const pill = document.createElement("span");
+      pill.className = "chance";
+      pill.textContent = pct(p);
+      pill.style.background = riskColor(p);
+      pill.style.color = p >= 0.3 ? "#fff" : "#1f1f1f";
+      const lbl = document.createElement("span");
+      lbl.className = "chance-label";
+      lbl.textContent = p < 0.1 ? "low" : p < 0.3 ? "moderate" : p < 0.6 ? "high" : "very high";
+      const pk = document.createElement("span");
+      pk.className = "peak";
+      pk.textContent = peakRisk > 0
+        ? "Riskiest window: " + RISK.slots[peak] + " (" + pct(peakRisk) + ")"
+        : "No tickets seen in this lot during these times";
+      result.replaceChildren(pill, lbl, pk);
+    }
+
+    [lot, arrive, depart].forEach((s) => s.addEventListener("change", update));
+    tripRows.appendChild(tr);
+    update();
+    syncRemoveButtons();
+    return tr;
+  }
+
+  // the last remaining row can't be removed
+  function syncRemoveButtons() {
+    const btns = tripRows.querySelectorAll(".remove-btn");
+    btns.forEach((b) => { b.hidden = btns.length === 1; });
+  }
+
+  document.getElementById("addTrip").addEventListener("click", () => {
+    const rows = tripRows.querySelectorAll("tr");
+    const last = rows[rows.length - 1];
+    const sel = last ? last.querySelectorAll("select") : [];
+    // new row starts as a copy of the last one so it's easy to compare lots or times
+    const tr = addTrip(sel.length ? { lot: sel[0].value, arrive: Number(sel[1].value), depart: Number(sel[2].value) } : {});
+    tr.querySelector("select").focus();
+  });
+
+  addTrip();
 })();
