@@ -340,6 +340,73 @@ a:hover {
     border-radius: 999px;
 }
 
+/* ---------- Research updates ---------- */
+.update-list {
+    list-style: none;
+}
+
+.update {
+    display: grid;
+    grid-template-columns: 5.5rem 1fr;
+    gap: 1.5rem;
+}
+
+.update + .update {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--rule);
+}
+
+.update-date {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+    padding-top: 0.2rem;
+    white-space: nowrap;
+}
+
+.update h3 {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: 1.3;
+    margin-bottom: 0.25rem;
+}
+
+.update h3 a {
+    color: var(--ink);
+}
+
+.update h3 a:hover {
+    color: var(--accent);
+}
+
+.update-source {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 0.75rem;
+}
+
+.update p:not(.update-source) {
+    font-size: 0.975rem;
+}
+
+.update-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+    margin-top: 0.85rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.update-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
 /* ---------- Current projects ---------- */
 .project-list {
     display: flex;
@@ -672,6 +739,16 @@ footer {
 }
 
 /* ---------- Responsive ---------- */
+.nav-brand {
+    white-space: nowrap;
+}
+
+@media (max-width: 860px) {
+    .nav-links .hide-md {
+        display: none;
+    }
+}
+
 @media (max-width: 760px) {
     .main-container {
         padding: 2.5rem 1rem 4rem;
@@ -739,5 +816,10 @@ footer {
     .entry .date {
         order: -1;
         padding-top: 0;
+    }
+
+    .update {
+        grid-template-columns: 1fr;
+        gap: 0.25rem;
     }
 }
