@@ -1,5 +1,7 @@
 UTK ticket risk map
-
+===================
+Open index.html in a web browser (double-click it). It needs internet access to load
+the map library (Leaflet) and the OpenStreetMap tiles.
 
 Files
   index.html        page layout

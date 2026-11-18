@@ -58,8 +58,6 @@
   const timeText = document.getElementById("timeText");
   const timeText2 = document.getElementById("timeText2");
   const topList = document.getElementById("topList");
-  document.getElementById("nDays").textContent = RISK.days;
-  document.getElementById("nLots").textContent = lotNames.length;
 
   function render() {
     const i = Number(slider.value);
@@ -82,7 +80,7 @@
       li.textContent = n;
       const s = document.createElement("span");
       s.textContent = pct(v);
-      s.style.color = v >= 0.12 ? riskColor(Math.max(v, 0.3)) : "#666";
+      s.style.color = v >= 0.12 ? riskColor(Math.max(v, 0.3)) : "var(--muted)";
       li.appendChild(s);
       return li;
     }));

@@ -3,69 +3,91 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>UTK Ticket Risk Map</title>
+  <title>UTK Ticket Risk Map — Samuel Storey</title>
+  <meta name="description" content="Interactive map of parking ticket risk across University of Tennessee, Knoxville lots by time of day, built from spring 2026 citation data.">
+
+  <!-- Fonts: match the CV (Fraunces + Inter) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
   <!-- Leaflet: free open-source map library, map tiles from OpenStreetMap -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="topbar">
-    <div>
-      <h1>UTK ticket risk map</h1>
-      <p class="sub">Darker orange = a ticket was more likely in that lot at that time on a regular weekday</p>
-    </div>
+
+  <main class="main-container">
+
+    <header class="page-header">
+      <h1>UTK Ticket Risk Map</h1>
+      <p class="sub">Darker orange means a ticket was more likely in that lot at that time on a regular weekday. Drag the slider or press play to move through the day.</p>
+    </header>
+
     <div class="timebox">
       <button id="play" type="button" aria-label="Play through the day">▶</button>
       <label for="time" class="time-label"><span id="timeText">8:00 AM</span></label>
       <input id="time" type="range" min="0" max="47" step="1" value="8" aria-label="Time of day">
       <div class="ticks"><span>6 AM</span><span>9 AM</span><span>12 PM</span><span>3 PM</span><span>6 PM</span></div>
     </div>
-  </header>
 
-  <main class="layout">
-    <div id="map" aria-label="Campus map"></div>
+    <div class="layout">
+      <div id="map" aria-label="Campus map"></div>
 
-    <aside class="panel">
-      <section>
-        <h2>Riskiest lots at <span id="timeText2">8:00 AM</span></h2>
-        <ol id="topList" class="top-list"></ol>
-      </section>
+      <aside class="panel">
+        <section>
+          <h2 class="panel-label">Riskiest lots at <span id="timeText2">8:00 AM</span></h2>
+          <ol id="topList" class="top-list"></ol>
+        </section>
 
-      <section>
-        <h2>Legend</h2>
-        <div class="legend-bar"></div>
-        <div class="legend-labels"><span>0%</span><span>30%</span><span>60%+</span></div>
-        <p class="note">Share of weekdays with at least one ticket in that lot during the 15-minute window. Based on <span id="nDays">—</span> regular weekdays, spring 2026.</p>
-        <p class="note">Showing <span id="nLots">—</span> lots. Motorcycle parking is spread across too many small areas to rate and is not shown.</p>
-      </section>
-    </aside>
+        <section>
+          <h2 class="panel-label">Legend</h2>
+          <div class="legend-bar"></div>
+          <div class="legend-labels"><span>0%</span><span>30%</span><span>60%+</span></div>
+        </section>
+      </aside>
+    </div>
+
+    <div class="separator" role="separator" aria-hidden="true"><span>Plan a visit</span></div>
+
+    <section class="planner" aria-labelledby="plannerTitle">
+      <div class="planner-head">
+        <div>
+          <h2 id="plannerTitle">Chance of a ticket during your visit</h2>
+          <p class="note">Pick the lot and when you'll arrive and leave. The chance is how likely the lot was to get at least one ticket at some point while you're parked.</p>
+        </div>
+        <button id="addTrip" type="button" class="add-btn"><i class="fa-solid fa-plus"></i> Add another trip</button>
+      </div>
+
+      <div class="table-wrap">
+        <table class="trip-table">
+          <thead>
+            <tr>
+              <th scope="col">Lot</th>
+              <th scope="col">Arrival</th>
+              <th scope="col">Departure</th>
+              <th scope="col">Chance of a ticket</th>
+              <th scope="col"><span class="sr-only">Remove</span></th>
+            </tr>
+          </thead>
+          <tbody id="tripRows"></tbody>
+        </table>
+      </div>
+    </section>
+
   </main>
 
-  <section class="planner" aria-labelledby="plannerTitle">
-    <div class="planner-head">
-      <div>
-        <h2 id="plannerTitle">Chance of a ticket during your visit</h2>
-        <p class="note">Pick the lot and when you'll arrive and leave. The chance is how likely the lot was to get at least one ticket at some point while you're parked.</p>
+  <footer>
+    <div class="footer-content">
+      <span>&copy; 2026 Samuel Storey</span>
+      <div class="footer-links">
+        <a href="https://github.com/sstorey4" target="_blank" rel="noopener" class="footer-link"><i class="fa-brands fa-github"></i> GitHub</a>
       </div>
-      <button id="addTrip" type="button" class="add-btn">+ Add another trip</button>
     </div>
-
-    <div class="table-wrap">
-      <table class="trip-table">
-        <thead>
-          <tr>
-            <th scope="col">Lot</th>
-            <th scope="col">Arrival</th>
-            <th scope="col">Departure</th>
-            <th scope="col">Chance of a ticket</th>
-            <th scope="col"><span class="sr-only">Remove</span></th>
-          </tr>
-        </thead>
-        <tbody id="tripRows"></tbody>
-      </table>
-    </div>
-    <p class="note">How it's worked out: each 15-minute window in your stay has its own chance from the data above, and those are combined (assuming each window is independent), so long stays add up. The data covers 6:00 AM to 6:00 PM.</p>
-  </section>
+  </footer>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="data/lot_risk.js"></script>
